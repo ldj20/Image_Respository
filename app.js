@@ -27,18 +27,20 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 //security settings
-app.use(cookieParser(process.env.SECRET));
 app.use(session({
     secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: { maxAge : 50000 }
 }));
+app.use(cookieParser(process.env.SECRET));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(User.createStrategy());
+require('./backend/passportConfig')(passport);
+
+/*passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.deserializeUser(User.deserializeUser());*/
 
 //routes
 app.use("/api/users", userRouter);

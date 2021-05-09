@@ -35,7 +35,7 @@ function SignUp() {
         setForm(initialFormState);
         setSubmitted(false);
     };
-
+    
     return (
         <div>
           {submitted ? (
@@ -81,7 +81,7 @@ function SignUp() {
                 <button type="submit" className="btn btn-info form-control preauth-button-style" onClick={saveData}>
                     Submit
                 </button>
-                    
+
             </div>
             )}
         </div>

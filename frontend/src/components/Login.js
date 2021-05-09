@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 function Login (props) {
 
     const [loginInfo, setLoginInfo] = useState({
-        email: "", 
+        username: "", 
         password: ""
     });
 
@@ -26,10 +26,12 @@ function Login (props) {
     const logUserIn = () => {
         UserService.login(loginInfo)
             .then (response => {
-                if(response.data.status === 1) {
+                if(response.data.success === 1) {
                     console.log(response);
+                    console.log("hereeee")
                     history.push("/");
                 } else {
+                    console.log(response)
                     setErrorMessage(response.data.data);
                 };
             })
@@ -50,10 +52,10 @@ function Login (props) {
                     id="username"
                     type="email" 
                     className="form-control" 
-                    name="email" 
+                    name="username" 
                     placeholder="john.smith@gmail.com" 
                     required
-                    value={loginInfo.email} 
+                    value={loginInfo.username} 
                     onChange={handleChange}         
                 />
             </div>
