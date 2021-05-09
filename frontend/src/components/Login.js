@@ -1,9 +1,58 @@
 import React, { useState } from 'react';
 import UserService from '../services/UserServices';
 import { useHistory } from 'react-router-dom';
+import ImageService from '../services/ImageServices';
+import { arrayBufferToBlob, createObjectURL } from 'blob-util';
 
 function Login (props) {
 
+/*    function convert(images) {
+        const converted = []
+        for (var i = 0; i < images.length; i++) {
+            const unit8 = new Uint8Array(images[i].data);
+            const blob = arrayBufferToBlob(unit8);
+            const blobURL = createObjectURL(blob);
+            converted.push(blobURL)
+        }
+        return converted
+    }
+
+
+    async function decideImages() {
+            ImageService.getImages()
+                .then(response => {
+                    const results = response.data.results
+                    //const extensions = response.data.extensions
+                    const res=convert(results)
+                    var landing = ""
+                    for (var j = 0; j < res.length; j++) {
+                        landing += `${res[j]}|`
+                    }
+                    localStorage.setItem("landingURL", landing.substring(0,landing.length-2));
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            UserService.getImages()
+                .then(response => {
+                    const results = response.data.results
+                    //const extensions = response.data.extensions
+                    const res=convert(results)
+                    var personal = ""
+                    for (var j = 0; j < res.length; j++) {
+                        personal += `${res[j]}|`
+                    }
+                    var sub = personal
+                    if (sub.length > 2) {
+                        sub = personal.substring(0,personal.length-2)
+                    }
+                    localStorage.setItem("personalURL", personal);
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+    }
+*/
     const [loginInfo, setLoginInfo] = useState({
         username: "", 
         password: ""
@@ -24,17 +73,30 @@ function Login (props) {
     const history = useHistory();
 
     const logUserIn = () => {
-        UserService.login(loginInfo)
-            .then (response => {
-                if(response.data.success === 1) {
-                    history.push("/");
-                } else {
+        if (!(loginInfo.username == "" || loginInfo.username == undefined || loginInfo.password == "" || loginInfo.password == undefined)) {
+            UserService.login(loginInfo)
+                .then (response => {
+                    if (response.data.success == 1) {
+                        console.log("heree")
+                        /*decideImages()
+                            .then(response => {
+                                localStorage.removeItem("personalURL");
+                                localStorage.removeItem("landingURL");*/
+                                history.push("/");
+                            /*})
+                            .catch(err => {
+                                setErrorMessage("Unexpected error, please try again later")
+                            })*/
+                    } else {
+                        console.log("hereee")
+                        setErrorMessage("Account not found");
+                    };
+                })
+                .catch(err => {
+                    console.log("hereeee")
                     setErrorMessage("Account not found");
-                };
-            })
-            .catch(e => {
-                setErrorMessage("Account not found");
-            });
+                });
+        }
     };
 
     return(

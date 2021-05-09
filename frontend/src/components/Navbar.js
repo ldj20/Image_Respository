@@ -20,6 +20,8 @@ function Navbar(props) {
             .then(response => {
                 console.log(response)
                 props.setAuthenticated(false)
+                localStorage.removeItem("landingURL");
+                localStorage.removeItem("personalURL");
                 history.push("/")
             })
             .catch(err => {

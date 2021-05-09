@@ -12,11 +12,13 @@ import UserService from './services/UserServices';
 
 function App() {
   const [authenticated, setAuthenticated] = useState("loading");
+  const [images, setImages] = useState([])
+  const [personalImg, setPersonalImg] = useState([])
 
   function checkAuth() {
     UserService.getAuth()
       .then(response => {
-        console.log(response)
+        console.log(document.cookie)
         setAuthenticated(response.data.authenticated);
       })
       .catch((error) => {
@@ -29,11 +31,11 @@ function App() {
       <Navbar authenticated={authenticated} setAuthenticated={setAuthenticated} />
       {authenticated === "loading" ?
       <Route path="/" exact={true} component={() => <LandingRedirect checkAuth={checkAuth}/>} /> :
-      <Route path="/" exact={true} component={() => <Landing checkAuth={checkAuth} authenticated={authenticated} />} />}
+      <Route path="/" exact={true} component={() => <Landing images={images} checkAuth={checkAuth} authenticated={authenticated} />} />}
 
       <Route path="/sign-up" component={() => <SignUp checkAuth={checkAuth} authenticated={authenticated} />} />
-      <Route path="/login" component={() => <Login checkAuth={checkAuth} authenticated={authenticated} />} />
-      <Route path="/images" component={() => <Images checkAuth={checkAuth} authenticated={authenticated} />} />
+      <Route path="/login" component={() => <Login images={images} setImages={setImages} personalImg={personalImg} setPersonalImg={setPersonalImg} checkAuth={checkAuth} authenticated={authenticated} />} />
+      <Route path="/images" component={() => <Images personalImg={personalImg} setPersonalImg={setPersonalImg} checkAuth={checkAuth} authenticated={authenticated} />} />
       <Route path="logout" component={Logout} />
 
     </div>

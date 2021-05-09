@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const User = require('./user.model');
 const passport = require('passport');
 const bcrypt = require("bcryptjs");
-const saltRounds = 10;
+const fs = require('file-system');
 
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
@@ -76,8 +76,26 @@ module.exports = {
             success: 1
         })
     },
-    deleteUser: (req, res) => {
-        //implement later
-        return
+    getImages: (req, res) => {
+        //should be authenticated already
+        const userEmail = req.user.email
+        //console.log(req.files[0].buffer) 
+        User.findOne({ email: userEmail }, (err, user) => {
+            if (err) {
+                return res.status(500).json({
+                    message: err,
+                    success: 0
+                })
+            }
+            const images = []
+            for (var i = 0; i < user.images.length; i++) {
+                const currPath = user.images[i].path
+                images.push(fs.readFileSync(currPath))
+            }
+            return res.status(200).json({
+                results: images,
+                success: 1
+            })
+        })
     }
 }

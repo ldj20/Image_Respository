@@ -28,7 +28,6 @@ module.exports = {
     addImages: (req, res) => {
         //check if payload is over a certain amount
         upload(req, res, function(err) {
-            console.log(req.files)
             if (err instanceof multer.MulterError) {
                 return res.status(422).json({
                     message: "too many images"
@@ -54,7 +53,8 @@ module.exports = {
                     const newImage = new Image({
                         path: req.files[i].path,
                         isPublic: isPublic,
-                        arrLocation: currIndex
+                        arrLocation: currIndex,
+                        extension: req.files[i].mimetype.split('/')[1]
                     })
                     imgArr.push(newImage)
                 }
@@ -62,7 +62,6 @@ module.exports = {
                 user.images = mergedArr
                 user.save()
                     .then(() => {
-                        if (isPublic) {
                             Image.insertMany(imgArr)
                                 .then(() => {
                                     return res.status(200).json({
@@ -76,12 +75,6 @@ module.exports = {
                                         success: 0
                                     })
                                 })
-                        } else {
-                            return res.status(200).json({
-                                message: "succesfully uploaded",
-                                success: 1
-                            })
-                        }
                     })
                     .catch(err => {
                         return res.status(500).json({
@@ -92,6 +85,30 @@ module.exports = {
             })
         })
         
+    },
+    getImages: (req, res) => {
+        const filter = { isPublic: true }
+        Image.findRandom(filter, {}, {limit: 5}, function(err, results) {
+            if (err) {
+                return res.status(500).json({
+                    message: err,
+                    success: 0
+                })
+            }
+            const images = []
+            const extensions = []
+            for (var i = 0; i < results.length; i++) {
+                const currPath = results[i].path
+                const ext = results[i].extension
+                images.push(fs.readFileSync(currPath))
+                extensions.push(ext)
+            }
+            return res.status(200).json({
+                results: images,
+                extensions: extensions,
+                success: 1
+            })
+        });
     },
     deleteImages: (req, res) => {
         

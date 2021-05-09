@@ -13,12 +13,17 @@ const logout = () => {
 };
 
 const getAuth = () => {
-  return http.get("/users/auth")
+  return http.get("/users/auth");
+}
+
+const getImages = () => {
+  return http.get("/users/images");
 }
 
 export default {
   create,
   login,
   logout,
-  getAuth
+  getAuth,
+  getImages
 }

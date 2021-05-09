@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { createUser, login, logout, deleteUser } = require("./user.service");
+const { createUser, login, logout, getImages } = require("./user.service");
 const { checkUser } = require("./user.utility");
 
 router.get("/auth", (req, res) => {
@@ -10,6 +10,6 @@ router.get("/auth", (req, res) => {
 router.post("/", createUser);
 router.post("/login", login);
 router.get("/logout", logout);
-router.delete('/delete', deleteUser);
+router.get("/images", checkUser, getImages);
 
 module.exports = router;

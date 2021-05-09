@@ -3,6 +3,17 @@ header {
     padding: 3.0rem 0;
 }
 
+img {
+    float: left;
+    width:  175px;
+    height: 175px;
+    object-fit: cover;
+}
+
+.center-styling {
+    margin: auto
+}
+
 .home-button {
     width: 10.0rem;
     margin: 1.5rem 2.0rem;

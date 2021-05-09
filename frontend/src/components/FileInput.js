@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Display from './Display';
 
 function FileInput() {
     const fileInput = React.createRef();
@@ -55,6 +56,9 @@ function FileInput() {
                 <input type="checkbox" id="isPublic" name="isPublic" value="private" onChange={handleChange} />
             </label>
             <button type="submit" onClick={handleSubmit}>Submit</button>
+
+            <h3>Your Images:</h3>
+            <Display isLanding={false} />
         </div>
     );
 }
