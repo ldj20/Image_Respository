@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "env-cmd -f ./config/test.env/ jest --watch",
+    "dev": "env-cmd -f ./config/dev.env/ nodemon",
     "start": "node index.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -18,10 +22,21 @@
   },
   "homepage": "https://github.com/ldj20/Image_Respository#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.0",
     "express": "^4.17.1",
-    "file-system": "^2.2.2"
+    "express-session": "^1.17.1",
+    "file-system": "^2.2.2",
+    "jest": "^26.6.3",
+    "mongoose": "^5.12.7",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^6.1.0"
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "supertest": "^6.1.3"
   }
 }
