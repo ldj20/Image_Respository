@@ -1,0 +1,110 @@
+header {
+    text-align: center;
+    padding: 3.0rem 0;
+}
+
+.home-button {
+    width: 10.0rem;
+    margin: 1.5rem 2.0rem;
+}
+
+.homepage-header {
+    text-align: center;
+    padding: 12.0rem 0;
+}
+
+.page-form {
+    margin: 0 15% 5%;
+}
+
+.notification {
+    margin: 2.0rem;
+}
+
+.notification .btn {
+    width: 10.0rem;
+    margin: 2.0rem;
+}
+
+.preauth-button-style {
+    margin-top: 2%;
+}
+
+.preauth-loginbutton-style {
+    margin-bottom: 2%;
+}
+
+#account-homepage {
+    padding: 4.0rem 0;
+}
+
+/* dashboard */
+
+#dashboard {
+    display: inline-block;
+    background-image: linear-gradient(#CAB997, #D3D3D3, #CAB997);
+    padding-top: 0.5rem;
+}
+
+/* account details */
+
+.account-select-style {
+    margin-bottom: 2%;
+}
+
+#delete-button {
+    margin-top: 3%;
+}
+
+/* dashboard details */
+
+.dashboard-select-style {
+    margin-bottom: 2%;
+    margin-top: 0.5%;
+}
+
+@media (min-width: 768px) {
+    /* pre-authenticated forms */
+    .preauth-select-style {
+        margin-bottom: 2%; 
+        margin-left: 25%;
+        width: 50%;
+    }
+
+    .preauth-button-style {
+        margin-bottom: 2%;
+        margin-left: 25%;
+        width: 50%;
+    }
+
+    .preauth-loginbutton-style {
+        margin-bottom: 1%;
+        margin-left: 25%;
+        width: 50%;
+    }
+    
+    /* dashboard */
+    
+    #dashboard {
+        border-radius: 30%;
+        width: 42rem;
+        height: 36rem;
+        stroke-linecap: round;
+    }
+
+    /* account detatils */
+
+    .account-select-style {
+        width: 50%;
+        margin-left: 25%;
+    }
+
+    .account-detail-button {
+        margin-left: 25%;
+    }
+
+    #delete-button {
+        margin-top: 0;
+        margin-left: 1%;
+    }
+}

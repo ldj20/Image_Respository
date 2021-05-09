@@ -43,7 +43,6 @@ module.exports = {
         res.send(req.user);
     },
     login: (req, res, next) => {
-        console.log(req.body);
         passport.authenticate("local", (err, user, info) => {
             if (err) {
                 return res.status(500).json({
@@ -73,36 +72,12 @@ module.exports = {
     },
     logout: (req, res) => {
         req.logout();
-        res.redirect("/");
+        return res.status(200).json({
+            success: 1
+        })
     },
-    //i'm not getting back the messages in the json so we're just using status for error handling rn
-    changePassword: (req, res) => {
-        if (req.isAuthenticated()) {
-            const dict = req.body;
-            const entries = Object.keys(dict);
-            for (let i = 0; i < entries.length; i++) {
-                if (dict[entries[i]] == null || (dict[entries[i]]) == undefined || (dict[entries[i]]) == "") {
-                    return res.status(404).json({message: "empty field"});
-                }
-            }
-            if (dict.newPass == dict.confirmation) {
-                User.findByUsername(req.session.passport.user).then(function(sanitizedUser){
-                    if (sanitizedUser){
-                        sanitizedUser.setPassword(dict.newPass, function(){
-                            sanitizedUser.save();
-                            return res.status(200).json({message: 'password reset successful'});
-                        });
-                    } else {
-                        return res.status(500).json({message: 'This user does not exist'});
-                    }
-                },function(err){
-                    console.log(err);
-                })
-            } else {
-                return res.status(404).json({message: "passwords don't match"});
-            }
-        } else {
-            return res.redirect("/portal");
-        }
+    deleteUser: (req, res) => {
+        //implement later
+        return
     }
 }

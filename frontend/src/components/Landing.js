@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function Landing () {
-    const [loggedIn, setLoggedIn] = useState(false);
+
+function Landing (props) {
+
+    useEffect(() => {
+      props.checkAuth()
+    }, []);
 
     return(
         <div className="homepage-header">
-            {loggedIn ? (
+            {props.authenticated ? (
                 <p>Here</p>
             ) :
             <div>

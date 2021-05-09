@@ -27,16 +27,13 @@ function Login (props) {
         UserService.login(loginInfo)
             .then (response => {
                 if(response.data.success === 1) {
-                    console.log(response);
-                    console.log("hereeee")
                     history.push("/");
                 } else {
-                    console.log(response)
-                    setErrorMessage(response.data.data);
+                    setErrorMessage("Account not found");
                 };
             })
             .catch(e => {
-                console.log(e);
+                setErrorMessage("Account not found");
             });
     };
 
@@ -45,7 +42,7 @@ function Login (props) {
             <header>
                 <h2>Login</h2>
             </header>
-            <div id="errorMessage" style={{color: 'red', textAlign: 'center'}}>&nbsp;{errorMessage}</div>
+            <div className="errorMessage" style={{color: 'red', textAlign: 'center'}}>&nbsp;{errorMessage}</div>
             <div className="form-group preauth-select-style">
                 <label for="username">Email</label>
                 <input 

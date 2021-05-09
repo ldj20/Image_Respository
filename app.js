@@ -7,7 +7,6 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const cors = require('cors');
 
-const User = require('./backend/users/user.model');
 const userRouter = require("./backend/users/user.router");
 const imgRouter = require("./backend/images/image.router");
 
