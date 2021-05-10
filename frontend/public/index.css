@@ -5,15 +5,34 @@ header {
 
 img {
     float: left;
-    width:  175px;
-    height: 175px;
+    width:  17rem;
+    height: 17rem;
     object-fit: cover;
 }
 
-.center-styling {
-    margin: auto
+.gallery-grid {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+    justify-items: center;
+    margin: 0;
+    padding: 0;
+}
+  
+.gallery-img {
+    object-fit: cover;
+    transition: opacity 0.25s ease-in-out;
+}
+  
+.gallery-img:hover {
+    opacity: .7;
 }
 
+.center-styling {
+    margin: auto;
+    width: 80%;
+}
+  
 .home-button {
     width: 10.0rem;
     margin: 1.5rem 2.0rem;

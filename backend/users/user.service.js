@@ -9,6 +9,12 @@ mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology
 module.exports = {
     createUser: (req, res) => {
         const body = req.body;
+        if (body.email.length <= 5 || body.password.length <= 5) {
+            return res.status(422).json({
+                message: "fields are too short",
+                success: 0
+            })
+        }
         User.findOne({ email: body.email }, async (err, doc) => {
             if (err) {
                 return res.status(500).json({
@@ -43,6 +49,12 @@ module.exports = {
         res.send(req.user);
     },
     login: (req, res, next) => {
+        if (req.body.username == "" || req.body.password == "") {
+            return res.status(422).json({
+                message: "blank email and/or password",
+                success: 0
+            })
+        }
         passport.authenticate("local", (err, user, info) => {
             if (err) {
                 return res.status(500).json({
@@ -50,9 +62,10 @@ module.exports = {
                     success: 0
                 })
             }
+            //user doesn't exist
             else if (!user) {
                 return res.status(400).json({
-                    error: "invalid credentials",
+                    message: "invalid credentials",
                     success: 0
                 })
             }
@@ -63,6 +76,7 @@ module.exports = {
                         success: 0
                     })
                 }
+                //succesful login
                 return res.status(200).json({
                     message: "valid user",
                     success: 1

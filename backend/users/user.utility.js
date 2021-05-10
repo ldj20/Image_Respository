@@ -5,7 +5,10 @@ module.exports = {
         if (req.isAuthenticated()) {
             next()
         } else {
-            return res.redirect("/login")
+            return res.status(401).json({
+                message: "unauthorized",
+                success: 0
+            })
         }
     }
 }

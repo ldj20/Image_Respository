@@ -48,16 +48,19 @@ function Landing (props) {
     function createImage(image) {
         console.log(image)
         return (
-            <img src={image} />
+            <figure class="gallery-frame">
+                <img class="gallery-img" src={image} />
+            </figure>
         )
     }
 
 
     return (
         images ?
-        <div className="center-styling">
-            {images.map(createImage)}
-        </div> : 
+        <div class="gallery-grid">
+            {images.map(createImage)}    
+        </div>
+        : 
         <div />
     )
 };

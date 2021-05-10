@@ -13,13 +13,17 @@ function SignUp() {
     
     const [submitted, setSubmitted] = useState(false);
 
+    const [errorMessage, setErrorMessage] = useState("");
+
     const handleChange = event => {
         const { name, value } = event.target;
         setForm({ ...form, [name]: value });
     };
 
     const saveData = event => {
-        console.log('here')
+        if (form.email.length <= 5 || form.password.length <= 5) {
+            setErrorMessage("Email and password should be longer than 5 characters")
+        }
         UserService.create(form)
             .then(response => {
                 setSubmitted(true);
@@ -51,7 +55,7 @@ function SignUp() {
                 <header>
                     <h2>Sign Up</h2>
                 </header>
-
+                <div className="errorMessage" style={{color: 'red', textAlign: 'center'}}>&nbsp;{errorMessage}</div>
                 <div className="form-group preauth-select-style">
                     <label htmlFor="email">Email</label>
                     <input

@@ -9,9 +9,12 @@ function Landing (props) {
     }, []);
 
     return(
-        <div className="homepage-header">
+        <div className="homepage-header center-styling">
             {props.authenticated ? (
-                <Display isLanding={true} />
+                <div>
+                    <h1>Image Repository</h1>
+                    <Display isLanding={true} />
+                </div>
             ) :
             <div>
                 <h1>Image Repository</h1>

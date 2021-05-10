@@ -15,13 +15,7 @@ var storage = multer.diskStorage({
     }
   })
 
-const upload = multer({ storage: storage, limits: {fileSize: 100000000}}).array('file', 1000); 
-
-//var upload = multer({ storage: storage, limits: {fileSize: 1000000}}); router.post('/upload', upload.single('file'), controller.create);
-
-// const upload = multer({
-//     dest: 'backend/images/uploads'
-// }).array('file', 1000);
+const upload = multer({ storage: storage, limits: {fileSize: 10000000}}).array('file', 1000); 
 
 
 module.exports = {

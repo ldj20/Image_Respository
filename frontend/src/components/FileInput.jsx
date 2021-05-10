@@ -32,7 +32,7 @@ function FileInput() {
             })
             .catch(err => {
                 if (err.response.data.message == "too many images") {
-                    setErrorMessage("Attempted to upload too many files (max 1000)");
+                    setErrorMessage("Attempted to upload too many files (max 1000) or too much data (max 100 megabytes)");
                 } else {
                     setErrorMessage("Unknown error, please try again later");
                 }
