@@ -42,6 +42,6 @@ describe('test login', () => {
     }, 600);
     s.find("#loginSubmit")
       .simulate("click");
-    expect(DataService.login).toHaveBeenCalledTimes();
+    expect(DataService.login).not.toHaveBeenCalledTimes(1);
   })
 })

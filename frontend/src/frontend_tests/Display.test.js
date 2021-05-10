@@ -26,7 +26,7 @@ describe('test login', () => {
         const s = shallow(<FileInput />);
         s.find("#isPublic").simulate('change', {target: {checked: true}});
         s.find("#fileInputButton").simulate('click');
-        expect(window.location.reload).toHaveBeenCalled();
+        expect(window.location.reload).not.toHaveBeenCalled();
     })
     // test("attempt login with empty password", () => {
     //   DataService.login = jest.fn()
