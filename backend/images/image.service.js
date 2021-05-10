@@ -20,11 +20,17 @@ const upload = multer({ storage: storage, limits: {fileSize: 10000000}}).array('
 
 module.exports = {
     addImages: (req, res) => {
-        //check if payload is over a certain amount
         upload(req, res, function(err) {
+            if (req.files.length == 0) {
+                return res.status(422).json({
+                    message: "no file attached",
+                    success: 0
+                })
+            }
             if (err instanceof multer.MulterError) {
                 return res.status(422).json({
-                    message: "too many images"
+                    message: "too many images",
+                    success: 0
                 })
             } else if (err) {
                 return res.status(500).json({
@@ -43,7 +49,6 @@ module.exports = {
                 const imgArr = []
                 for (var i = 0; i < req.files.length; i++) {
                     currIndex++;
-                    console.log(req.files[i])
                     const newImage = new Image({
                         path: req.files[i].path,
                         isPublic: isPublic,
@@ -83,7 +88,7 @@ module.exports = {
     getImages: (req, res) => {
         const filter = { isPublic: true }
         Image.findRandom(filter, {}, {limit: 5}, function(err, results) {
-            if (err) {
+            if (err || results == null) {
                 return res.status(500).json({
                     message: err,
                     success: 0

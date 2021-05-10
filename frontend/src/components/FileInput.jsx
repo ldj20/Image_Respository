@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Display from './Display';
+import { useHistory } from 'react-router-dom';
 
 function FileInput() {
+    const history = useHistory();
     const fileInput = React.createRef();
     const [isPublic, setIsPublic] = useState(true);
     const [errorMessage, setErrorMessage] = useState("")
@@ -23,15 +25,19 @@ function FileInput() {
             },
             withCredentials: true,
         });
-        for (let obj of formData) {
-            console.log(obj)
-        }
         http.post("/images", formData)
             .then(response => {
                 window.location.reload();
             })
             .catch(err => {
-                if (err.response.data.message == "too many images") {
+                const message = err.response.data.message
+                if (err.response.status == 401) {
+                    history.push("/")
+                }
+                if (message == "no file attached") {
+                    setErrorMessage("Didn't attach any file")
+                }
+                else if (message == "too many images") {
                     setErrorMessage("Attempted to upload too many files (max 1000) or too much data (max 100 megabytes)");
                 } else {
                     setErrorMessage("Unknown error, please try again later");

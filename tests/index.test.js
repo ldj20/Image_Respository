@@ -1,8 +1,8 @@
 const request = require('supertest');
 const app = require('../app');
 const User = require('../backend/users/user.model');
-//const agentReq = require('superagent');
 const test_user = request.agent(app);
+const fs = require('file-system');
 
 describe('test sign up', () => {
     test('basic sign up', async () => {
@@ -102,3 +102,34 @@ describe('test login', () => {
         .expect(422)
     })
 })
+
+describe('test image creation', () => {
+    const file1 = fs.createReadStream('uploads_test/cat.jpeg');
+
+    test('no file attached', async () => {
+        await test_user.post('/api/images')
+        .field('isPublic', true)
+        .expect(422)
+    })
+
+    test('file attached', async () => {
+        await test_user.post('/api/images')
+        .field('isPublic', true)
+        .field('file', file1)
+        .expect(200)
+    })
+
+})
+
+describe('get images', () => {
+    test('user images', async () => {
+        await test_user.get('/api/users/images')
+        .expect(200)
+    })
+
+    test('overall images', async () => {
+        await test_user.get('/api/images')
+        .expect(200)
+    })
+})
+

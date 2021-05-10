@@ -6,6 +6,7 @@ import { arrayBufferToBlob, createObjectURL } from 'blob-util';
 
 function Landing (props) {
 
+    const history = useHistory();
     const [images, setImages] = useState([]);
 
     function convert(images) {
@@ -28,7 +29,9 @@ function Landing (props) {
                     convert(results)
                 })
                 .catch(err => {
-                    console.log(err)
+                    if (err.response.status == 401) {
+                        history.push("/")
+                    }
                 })
         } else {
             UserService.getImages()
@@ -39,7 +42,9 @@ function Landing (props) {
                     convert(results)
                 })
                 .catch(err => {
-                    console.log(err)
+                    if (err.response.status == 401) {
+                        history.push("/")
+                    }
                 })
         }
     }, []);
