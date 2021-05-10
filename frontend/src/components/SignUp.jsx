@@ -9,7 +9,10 @@ function SignUp() {
         password: ""
     };
     
-    const [form, setForm] = useState({initialFormState});
+    const [form, setForm] = useState({
+        email: "",
+        password: ""
+    });
     
     const [submitted, setSubmitted] = useState(false);
 
@@ -21,23 +24,18 @@ function SignUp() {
     };
 
     const saveData = event => {
-        if (form.email.length <= 5 || form.password.length <= 5) {
+        console.log(form)
+        if (form.email == undefined || form.password == undefined || form.email.length <= 5 || form.password.length <= 5) {
             setErrorMessage("Email and password should be longer than 5 characters")
+            return
         }
         UserService.create(form)
             .then(response => {
                 setSubmitted(true);
             })
             .catch(e => {
-                console.log(e);
+                setErrorMessage("Error signing up, please try again later")
             });
-
-        event.preventDefault();
-    };
-
-    const newSignUp = () => {
-        setForm(initialFormState);
-        setSubmitted(false);
     };
     
     return (

@@ -19,7 +19,7 @@ function FileInput() {
         formData.append('isPublic', isPublic)
         formData.append('numFiles', fileArr.length)
         const http = axios.create({
-            baseURL: "http://localhost:8989/api",
+            baseURL: "https://lj-shopify-image.herokuapp.com/api",
             headers: {
                 'Content-type': `multipart/form-data; boundary=${formData._boundary}`
             },
