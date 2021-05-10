@@ -19,7 +19,7 @@ function FileInput() {
         formData.append('isPublic', isPublic)
         formData.append('numFiles', fileArr.length)
         const http = axios.create({
-            baseURL: "https://lj-shopify-image.herokuapp.com/api",
+            baseURL: "http://localhost:8989/api",
             headers: {
                 'Content-type': `multipart/form-data; boundary=${formData._boundary}`
             },
@@ -27,6 +27,9 @@ function FileInput() {
         });
         http.post("/images", formData)
             .then(response => {
+                if (isPublic) {
+                    history.push("/")
+                }
                 window.location.reload();
             })
             .catch(err => {
@@ -61,7 +64,7 @@ function FileInput() {
                 Make images private: 
                 <input type="checkbox" id="isPublic" name="isPublic" value="private" onChange={handleChange} />
             </label>
-            <button type="submit" onClick={handleSubmit}>Submit</button>
+            <button id="fileInputButton" type="submit" onClick={handleSubmit}>Submit</button>
 
             <h3>Your Images:</h3>
             <Display isLanding={false} />

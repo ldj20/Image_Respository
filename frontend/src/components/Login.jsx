@@ -32,15 +32,12 @@ function Login (props) {
             UserService.login(loginInfo)
                 .then (response => {
                     if (response.data.success == 1) {
-                        console.log("heree")
                         history.push("/");
                     } else {
-                        console.log("hereee")
                         setErrorMessage("Account not found");
                     };
                 })
                 .catch(err => {
-                    console.log("hereeee")
                     setErrorMessage("Account not found");
                 });
         }

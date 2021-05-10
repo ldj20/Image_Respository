@@ -38,8 +38,6 @@ function Landing (props) {
             UserService.getImages()
                 .then(response => {
                     const results = response.data.results
-                    console.log(results)
-                    //const extensions = response.data.extensions
                     convert(results)
                 })
                 .catch(err => {
@@ -50,16 +48,13 @@ function Landing (props) {
         }
     }, []);
 
-
     function createImage(image) {
-        console.log(image)
         return (
             <figure class="gallery-frame">
                 <img class="gallery-img" src={image} />
             </figure>
         )
     }
-
 
     return (
         images ?
