@@ -1,4 +1,4 @@
 /node_modules
 .env
-/config
+/env_config
 frontend/node_modules
