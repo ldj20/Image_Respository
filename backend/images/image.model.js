@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const random = require('mongoose-simple-random');
 
 const imageSchema = new mongoose.Schema ({
+    //path is always unique
     path: String,
     isPublic: Boolean,
     arrLocation: Number,

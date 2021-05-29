@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./user.model');
+const Image = require('../images/image.model');
 const passport = require('passport');
 const bcrypt = require("bcryptjs");
 const fs = require('file-system');
@@ -104,12 +105,57 @@ module.exports = {
             const images = []
             for (var i = 0; i < user.images.length; i++) {
                 const currPath = user.images[i].path
-                images.push(fs.readFileSync(currPath))
+                images.push([fs.readFileSync(currPath), currPath])
             }
             return res.status(200).json({
                 results: images,
                 success: 1
             })
+        })
+    },
+    deleteImages: (req, res) => {
+        //should be authenticated already
+        const userEmail = req.user.email
+        User.findOne({ email: userEmail }, (err, user) => {
+            if (err) {
+                return res.status(500).json({
+                    message: err,
+                    success: 0
+                })
+            }
+            const paths = Set()
+            for (const img in req.body.images) {
+                paths.add(img.path)
+            }
+            images = user.images
+            const newArr = images.filter(function(value, index, arr){ 
+                return !(paths.has(value.path));
+            });
+            console.log(newArr)
+            user.images = newArr
+            user.save((err) => {
+                if (err) {
+                    return res.status(500).json({
+                        message: err,
+                        success: 0
+                    })
+                }
+                Image.deleteMany({ path: {
+                    $in: paths
+                }}, (err) => {
+                    if (err) {
+                        return res.status(500).json({
+                            message: err,
+                            success: 0
+                        })
+                    }
+                    return res.status(200).json({
+                        message: "succesfully deleted",
+                        success: 1
+                    })
+                });
+            })
+
         })
     }
 }

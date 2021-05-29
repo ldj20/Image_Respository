@@ -12,10 +12,10 @@ function Landing (props) {
     function convert(images) {
         const converted = []
         for (var i = 0; i < images.length; i++) {
-            const unit8 = new Uint8Array(images[i].data);
+            const unit8 = new Uint8Array(images[i][0].data);
             const blob = arrayBufferToBlob(unit8);
             const blobURL = createObjectURL(blob);
-            converted.push(blobURL)
+            converted.push([blobURL, images[i][1]])
         }
         setImages(converted)
     }
