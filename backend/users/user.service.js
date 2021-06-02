@@ -3,7 +3,7 @@ const User = require('./user.model');
 const { Image } = require('../images/image.model');
 const passport = require('passport');
 const bcrypt = require("bcryptjs");
-const fs = require('file-system');
+const fs = require('fs');
 
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
@@ -149,6 +149,17 @@ module.exports = {
                             message: err,
                             success: 0
                         })
+                    }
+                    for (var i = 0; i < toDelete.length; i++) {
+                        const img = toDelete[i]
+                        try {
+                            fs.unlinkSync(img)
+                        } catch(err) {
+                            return res.status(500).json({
+                                message: err,
+                                success: 0
+                            })
+                        }
                     }
                     return res.status(200).json({
                         message: "succesfully deleted",
