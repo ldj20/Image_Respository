@@ -5,13 +5,25 @@ const multer = require('multer');
 const User = require('../users/user.model');
 const fs = require('file-system');
 
+var unique_append = 'a'
+
+function nextChar(c) {
+    let ret = String.fromCharCode(c.charCodeAt(0) + 1)
+    if (ret == 'z') {
+        return 'a'
+    }
+    return ret
+}
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       return cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
       var ext = file.mimetype.split('/')[1];
-      return cb(null, '-' + Date.now() + "." + ext);
+      file = `-${Date.now()}${unique_append}.${ext}`
+      unique_append = nextChar(unique_append)
+      return cb(null, file);
     }
   })
 
@@ -47,6 +59,8 @@ module.exports = {
                 var currIndex = currImgs.length
                 const isPublic = req.body.isPublic == 'true'
                 const imgArr = []
+                console.log(req.files.length)
+                console.log(req.files)
                 for (var i = 0; i < req.files.length; i++) {
                     currIndex++;
                     const newImage = new Image({
