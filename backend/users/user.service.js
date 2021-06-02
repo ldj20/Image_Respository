@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./user.model');
-const Image = require('../images/image.model');
+const { Image } = require('../images/image.model');
 const passport = require('passport');
 const bcrypt = require("bcryptjs");
 const fs = require('file-system');
@@ -123,15 +123,16 @@ module.exports = {
                     success: 0
                 })
             }
-            const paths = Set()
-            for (const img in req.body.images) {
-                paths.add(img.path)
+            const paths = new Set()
+            toDelete = req.body.images
+            for (var i = 0; i < toDelete.length; i++) {
+                const img = toDelete[i]
+                paths.add(img)
             }
             images = user.images
             const newArr = images.filter(function(value, index, arr){ 
                 return !(paths.has(value.path));
             });
-            console.log(newArr)
             user.images = newArr
             user.save((err) => {
                 if (err) {
@@ -141,7 +142,7 @@ module.exports = {
                     })
                 }
                 Image.deleteMany({ path: {
-                    $in: paths
+                    $in: Array.from(paths)
                 }}, (err) => {
                     if (err) {
                         return res.status(500).json({
