@@ -10,6 +10,10 @@ img {
     object-fit: cover;
 }
 
+.pressed {
+    opacity: .7
+}
+
 .gallery-grid {
     display: -ms-grid;
     display: grid;

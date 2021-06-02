@@ -14,8 +14,6 @@ function Login (props) {
 
     function handleChange(event) {
         const { value, name } = event.target;
-        console.log(value)
-        console.log(name)
         setLoginInfo(prevValue => {
             return {
                 ...prevValue,
@@ -27,10 +25,9 @@ function Login (props) {
     const history = useHistory();
 
     const logUserIn = () => {
-        console.log(loginInfo);
         if (!(loginInfo.username == "" || loginInfo.username == undefined || loginInfo.password == "" || loginInfo.password == undefined)) {
             UserService.login(loginInfo)
-                .then (response => {
+                .then(response => {
                     if (response.data.success == 1) {
                         history.push("/");
                     } else {

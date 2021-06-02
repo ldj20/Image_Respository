@@ -11,6 +11,6 @@ router.post("/", createUser);
 router.post("/login", login);
 router.get("/logout", logout);
 router.get("/images", checkUser, getImages);
-router.delete("/", checkUser, deleteImages);
+router.post("/images", checkUser, deleteImages);
 
 module.exports = router;

@@ -24,7 +24,6 @@ function Landing (props) {
         if (props.isLanding) {
             ImageService.getImages()
                 .then(response => {
-                    console.log(response.data.results)
                     const results = response.data.results
                     //const extensions = response.data.extensions
                     convert(results)
@@ -49,10 +48,28 @@ function Landing (props) {
         }
     }, []);
 
+    function handleClick(event) {
+        if (props.isLanding) {
+            return
+        }
+        const path = event.target.id
+        const newSet = new Set(props.toDelete)
+        if (newSet.has(path)) {
+            event.target.opacity = 1
+            newSet.delete(path)
+            event.target.className = "gallery-img"
+        } else {
+            event.target.opacity = 0.7
+            newSet.add(path)
+            event.target.className = "gallery-img pressed"
+        }
+        props.setToDelete(newSet)
+    }
+
     function createImage(image) {
         return (
-            <figure class="gallery-frame" key={image[1]}>
-                <img class="gallery-img" src={image[0]} />
+            <figure className="gallery-frame" key={image[1]} onClick={handleClick}>
+                <img className="gallery-img" src={image[0]} id={image[1]} />
             </figure>
         )
     }

@@ -18,7 +18,6 @@ function Navbar(props) {
     function logOut() {
         UserService.logout()
             .then(response => {
-                console.log(response)
                 props.setAuthenticated(false)
                 history.push("/")
             })

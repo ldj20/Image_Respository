@@ -20,10 +20,15 @@ const getImages = () => {
   return http.get("/users/images");
 }
 
+const deleteImages = data => {
+  return http.post("/users/images", data)
+}
+
 export default {
   create,
   login,
   logout,
   getAuth,
-  getImages
+  getImages,
+  deleteImages
 }

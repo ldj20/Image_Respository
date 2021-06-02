@@ -4,11 +4,6 @@ const getImages = () => {
   return http.get("/images");
 };
 
-const deleteImages = () => {
-  return http.get("/images")
-}
-
 export default {
-  getImages,
-  deleteImages
+  getImages
 }
