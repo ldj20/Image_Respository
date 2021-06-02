@@ -119,6 +119,13 @@ describe('test image creation', () => {
         .expect(200)
     })
 
+    test('private file attached', async () => {
+        await test_user.post('/api/images')
+        .field('isPublic', false)
+        .field('file', file1)
+        .expect(200)
+    })
+
 })
 
 describe('get images', () => {
@@ -133,3 +140,10 @@ describe('get images', () => {
     })
 })
 
+describe('delete images', () => {
+    test('one public image', async () => {
+        await test_user.delete('/api/users')
+        .field('images')
+        .expect
+    })
+})

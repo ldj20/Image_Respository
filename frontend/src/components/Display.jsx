@@ -24,6 +24,7 @@ function Landing (props) {
         if (props.isLanding) {
             ImageService.getImages()
                 .then(response => {
+                    console.log(response.data.results)
                     const results = response.data.results
                     //const extensions = response.data.extensions
                     convert(results)
@@ -50,8 +51,8 @@ function Landing (props) {
 
     function createImage(image) {
         return (
-            <figure class="gallery-frame">
-                <img class="gallery-img" src={image} />
+            <figure class="gallery-frame" key={image[1]}>
+                <img class="gallery-img" src={image[0]} />
             </figure>
         )
     }

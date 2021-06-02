@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "env-cmd -f ./config/test.env/ jest --watch",
-    "dev": "env-cmd -f ./config/dev.env/ nodemon",
+    "test": "env-cmd -f ./env_config/test.env/ jest --watch",
+    "dev": "env-cmd -f ./env_config/dev.env/ nodemon",
     "start": "node index.js"
   },
   "jest": {

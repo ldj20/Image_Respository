@@ -99,7 +99,7 @@ module.exports = {
             for (var i = 0; i < results.length; i++) {
                 const currPath = results[i].path
                 const ext = results[i].extension
-                images.push(fs.readFileSync(currPath))
+                images.push([fs.readFileSync(currPath), currPath])
                 extensions.push(ext)
             }
             return res.status(200).json({
@@ -108,9 +108,6 @@ module.exports = {
                 success: 1
             })
         });
-    },
-    deleteImages: (req, res) => {
-        
     },
     backgroundProcess: (req, res) => {
 
