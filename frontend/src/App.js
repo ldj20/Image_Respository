@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import LandingRedirect from './components/LandingRedirect';
@@ -17,10 +17,9 @@ function App() {
   function checkAuth() {
     UserService.getAuth()
       .then(response => {
-        console.log(document.cookie)
         setAuthenticated(response.data.authenticated);
       })
-      .catch((error) => {
+      .catch(err => {
         setAuthenticated(false)
       });
   }

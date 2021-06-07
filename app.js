@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const passport = require('passport');
-const passportLocalMongoose = require('passport-local-mongoose');
+var MongoDBStore = require('connect-mongodb-session')(session);
 const cors = require('cors');
 
 const userRouter = require("./backend/users/user.router");
@@ -40,6 +40,10 @@ app.use(cors(corsOptions));
 //security settings
 app.use(session({
     secret: process.env.SECRET,
+    store: new MongoDBStore({
+        uri: process.env.DB_URL,
+        collection: 'sessions'
+    }),
     resave: true,
     saveUninitialized: true,
     cookie: { maxAge : 7200000 }
