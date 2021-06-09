@@ -73,11 +73,14 @@ function FileInput() {
                 Upload files (PNG and JPEG only): 
                 <input type="file" id="files" name="files" accept="image/png, image/jpeg" ref={fileInput} multiple />
             </label>
+            <br/>
             <label>
                 Make images private: 
                 <input type="checkbox" id="isPublic" name="isPublic" value="private" onChange={handleChange} />
             </label>
             <button id="fileInputButton" type="submit" onClick={handleSubmit}>Submit</button>
+            <br/>
+            <br/>
             <label>
                 Delete selected images: 
             <button id="fileInputButton" type="submit" onClick={handleDelete}>Delete</button>
