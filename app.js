@@ -42,11 +42,12 @@ app.use(cookieParser(process.env.SECRET));
 app.enable('trust proxy')
 app.use(session({
     secret: process.env.SECRET,
+    proxy: true,
     resave: true,
     saveUninitialized: true,
     cookie: { 
         maxAge: 7200000,
-        sameSite:'none',
+        sameSite: 'none',
         store: new MongoDBStore({
             uri: process.env.DB_URL,
             databaseName: 'connect_mongodb_session',
