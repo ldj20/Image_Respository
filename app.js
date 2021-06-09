@@ -40,16 +40,19 @@ app.use(cors(corsOptions));
 //security settings
 app.use(session({
     secret: process.env.SECRET,
-    store: new MongoDBStore({
-        uri: process.env.DB_URL,
-        databaseName: 'connect_mongodb_session',
-        collection: 'sessions'
-    }),
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge : 7200000 }
+    cookie: { 
+        maxAge : 7200000,
+        store: new MongoDBStore({
+            uri: process.env.DB_URL,
+            databaseName: 'connect_mongodb_session',
+            collection: 'sessions'
+        }),
+    }
 }));
 app.use(cookieParser(process.env.SECRET));
+app.enable('trust proxy')
 app.use(passport.initialize());
 app.use(passport.session());
 require('./backend/passportConfig')(passport);
