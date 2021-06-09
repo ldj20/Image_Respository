@@ -48,6 +48,7 @@ app.use(session({
     cookie: { 
         maxAge: 7200000,
         sameSite: 'none',
+        secure: true,
         store: new MongoDBStore({
             uri: process.env.DB_URL,
             databaseName: 'connect_mongodb_session',
