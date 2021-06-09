@@ -75,16 +75,18 @@ function FileInput() {
             </label>
             <br/>
             <label>
-                Make images private: 
+                Make images private 
                 <input type="checkbox" id="isPublic" name="isPublic" value="private" onChange={handleChange} />
             </label>
+            <br/>
             <button id="fileInputButton" type="submit" onClick={handleSubmit}>Submit</button>
             <br/>
             <br/>
             <label>
-                Delete selected images: 
-            <button id="fileInputButton" type="submit" onClick={handleDelete}>Delete</button>
+                Delete selected images
             </label>
+            <br/>
+            <button id="fileInputButton" type="submit" onClick={handleDelete}>Delete</button>
             <h3>Your Images:</h3>
             <Display isLanding={false} otherProfile={false} toDelete={toDelete} setToDelete={setToDelete} />
         </div>

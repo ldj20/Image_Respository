@@ -124,8 +124,10 @@ module.exports = {
             }
             const images = []
             for (var i = 0; i < user.images.length; i++) {
-                const currPath = user.images[i].path
-                images.push([fs.readFileSync(currPath), currPath])
+                if (user.images[i].isPublic) {
+                    const currPath = user.images[i].path
+                    images.push([fs.readFileSync(currPath), currPath])
+                }
             }
             return res.status(200).json({
                 results: images,
