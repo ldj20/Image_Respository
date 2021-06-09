@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserService from '../services/UserServices';
 import { useHistory } from 'react-router-dom';
 import ImageService from '../services/ImageServices';
 import { arrayBufferToBlob, createObjectURL } from 'blob-util';
 
 function Login (props) {
+
+    useEffect(() => {
+        props.checkAuth()
+      }, []);
+
     const [loginInfo, setLoginInfo] = useState({
         username: "", 
         password: ""

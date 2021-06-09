@@ -45,7 +45,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     cookie: { 
-        maxAge : 7200000,
+        maxAge: 7200000,
+        secure: true,
         store: new MongoDBStore({
             uri: process.env.DB_URL,
             databaseName: 'connect_mongodb_session',

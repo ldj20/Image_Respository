@@ -32,10 +32,10 @@ function App() {
       <Route path="/" exact={true} component={() => <LandingRedirect checkAuth={checkAuth}/>} /> :
       <Route path="/" exact={true} component={() => <Landing images={images} checkAuth={checkAuth} authenticated={authenticated} />} />}
 
-      <Route path="/sign-up" component={() => <SignUp checkAuth={checkAuth} authenticated={authenticated} />} />
-      <Route path="/login" component={() => <Login images={images} setImages={setImages} personalImg={personalImg} setPersonalImg={setPersonalImg} checkAuth={checkAuth} authenticated={authenticated} />} />
-      <Route path="/images" component={() => <Images personalImg={personalImg} setPersonalImg={setPersonalImg} checkAuth={checkAuth} authenticated={authenticated} />} />
-      <Route path="/profiles" component={() => <Profile checkAuth={checkAuth} authenticated={authenticated} />} />
+      <Route path="/sign-up" exact={true} component={() => <SignUp checkAuth={checkAuth} authenticated={authenticated} />} />
+      <Route path="/login" exact={true} component={() => <Login images={images} setImages={setImages} personalImg={personalImg} setPersonalImg={setPersonalImg} checkAuth={checkAuth} authenticated={authenticated} />} />
+      <Route path="/images" exact={true} component={() => <Images personalImg={personalImg} setPersonalImg={setPersonalImg} checkAuth={checkAuth} authenticated={authenticated} />} />
+      <Route path="/profiles" exact={true} component={() => <Profile checkAuth={checkAuth} authenticated={authenticated} />} />
 
     </div>
   );
