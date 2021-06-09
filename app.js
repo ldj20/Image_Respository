@@ -38,6 +38,8 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 //security settings
+app.use(cookieParser(process.env.SECRET));
+app.enable('trust proxy')
 app.use(session({
     secret: process.env.SECRET,
     resave: true,
@@ -51,8 +53,6 @@ app.use(session({
         }),
     }
 }));
-app.use(cookieParser(process.env.SECRET));
-app.enable('trust proxy')
 app.use(passport.initialize());
 app.use(passport.session());
 require('./backend/passportConfig')(passport);
