@@ -81,8 +81,8 @@ function Display (props) {
         return (
             props.isLanding? 
             <figure className="gallery-frame" key={image[1]} className={image[2]}>
-                <a href=//{`https://lj-image-storage.herokuapp.com/profiles?uid=${image[2]}`}
-                        {`http://localhost:3000/profiles?uid=${image[2]}`}
+                <a href={`https://image-storing.netlify.app/profiles?uid=${image[2]}`}
+                        //{`http://localhost:3000/profiles?uid=${image[2]}`}
                 >
                     <img className="gallery-img" src={image[0]} id={image[1]} />
                 </a>
