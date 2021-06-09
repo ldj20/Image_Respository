@@ -4,7 +4,7 @@ import ImageService from '../services/ImageServices';
 import UserService from '../services/UserServices';
 import { arrayBufferToBlob, createObjectURL } from 'blob-util';
 
-function Landing (props) {
+function Display (props) {
 
     const history = useHistory();
     const [images, setImages] = useState([]);
@@ -15,7 +15,7 @@ function Landing (props) {
             const unit8 = new Uint8Array(images[i][0].data);
             const blob = arrayBufferToBlob(unit8);
             const blobURL = createObjectURL(blob);
-            converted.push([blobURL, images[i][1]])
+            converted.push([blobURL, images[i][1], images[i][2]])
         }
         setImages(converted)
     }
@@ -34,8 +34,19 @@ function Landing (props) {
                         history.push("/")
                     }
                 })
-        } else {
+        } else if (!props.otherProfile) {
             UserService.getImages()
+                .then(response => {
+                    const results = response.data.results
+                    convert(results)
+                })
+                .catch(err => {
+                    if (err.response.status == 401) {
+                        history.push("/")
+                    }
+                })
+        } else {
+            UserService.getImagesById({uid: props.uid})
                 .then(response => {
                     const results = response.data.results
                     convert(results)
@@ -49,7 +60,7 @@ function Landing (props) {
     }, []);
 
     function handleClick(event) {
-        if (props.isLanding) {
+        if (props.otherProfile) {
             return
         }
         const path = event.target.id
@@ -68,7 +79,15 @@ function Landing (props) {
 
     function createImage(image) {
         return (
-            <figure className="gallery-frame" key={image[1]} onClick={handleClick}>
+            props.isLanding? 
+            <figure className="gallery-frame" key={image[1]} className={image[2]}>
+                <a href=//{`https://lj-image-storage.herokuapp.com/profiles?uid=${image[2]}`}
+                        {`http://localhost:3000/profiles?uid=${image[2]}`}
+                >
+                    <img className="gallery-img" src={image[0]} id={image[1]} />
+                </a>
+            </figure> :
+            <figure className="gallery-frame" key={image[1]} className={image[2]} onClick={handleClick}>
                 <img className="gallery-img" src={image[0]} id={image[1]} />
             </figure>
         )
@@ -84,4 +103,4 @@ function Landing (props) {
     )
 };
 
-export default Landing
+export default Display

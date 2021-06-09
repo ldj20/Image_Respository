@@ -20,8 +20,12 @@ const getImages = () => {
   return http.get("/users/images");
 }
 
+const getImagesById = params => {
+  return http.get("/users/profile", { params });
+}
+
 const deleteImages = data => {
-  return http.post("/users/images", data)
+  return http.post("/users/images", data);
 }
 
 export default {
@@ -30,5 +34,6 @@ export default {
   logout,
   getAuth,
   getImages,
+  getImagesById,
   deleteImages
 }

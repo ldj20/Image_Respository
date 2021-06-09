@@ -113,6 +113,26 @@ module.exports = {
             })
         })
     },
+    getImagesById: (req, res) => {
+        const uid = req.query.uid
+        User.findById(uid, (err, user) => {
+            if (err) {
+                return res.status(500).json({
+                    message: err,
+                    success: 0
+                })
+            }
+            const images = []
+            for (var i = 0; i < user.images.length; i++) {
+                const currPath = user.images[i].path
+                images.push([fs.readFileSync(currPath), currPath])
+            }
+            return res.status(200).json({
+                results: images,
+                success: 1
+            })
+        })
+    },
     deleteImages: (req, res) => {
         //should be authenticated already
         const userEmail = req.user.email

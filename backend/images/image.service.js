@@ -67,7 +67,8 @@ module.exports = {
                         path: req.files[i].path,
                         isPublic: isPublic,
                         arrLocation: currIndex,
-                        extension: req.files[i].mimetype.split('/')[1]
+                        extension: req.files[i].mimetype.split('/')[1],
+                        userId: user._id
                     })
                     imgArr.push(newImage)
                 }
@@ -113,7 +114,7 @@ module.exports = {
             for (var i = 0; i < results.length; i++) {
                 const currPath = results[i].path
                 const ext = results[i].extension
-                images.push([fs.readFileSync(currPath), currPath])
+                images.push([fs.readFileSync(currPath), currPath, results[i].userId])
                 extensions.push(ext)
             }
             return res.status(200).json({

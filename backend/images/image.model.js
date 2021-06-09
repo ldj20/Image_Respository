@@ -7,7 +7,7 @@ const imageSchema = new mongoose.Schema ({
     isPublic: Boolean,
     arrLocation: Number,
     extension: String,
-    comments: [String]
+    userId: String
 })
 
 imageSchema.plugin(random)

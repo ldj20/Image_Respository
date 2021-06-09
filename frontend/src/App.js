@@ -7,6 +7,7 @@ import Landing from './components/Landing';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Images from './components/Images';
+import Profile from './components/Profile';
 import UserService from './services/UserServices';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
       <Route path="/sign-up" component={() => <SignUp checkAuth={checkAuth} authenticated={authenticated} />} />
       <Route path="/login" component={() => <Login images={images} setImages={setImages} personalImg={personalImg} setPersonalImg={setPersonalImg} checkAuth={checkAuth} authenticated={authenticated} />} />
       <Route path="/images" component={() => <Images personalImg={personalImg} setPersonalImg={setPersonalImg} checkAuth={checkAuth} authenticated={authenticated} />} />
+      <Route path="/profiles" component={() => <Profile checkAuth={checkAuth} authenticated={authenticated} />} />
 
     </div>
   );

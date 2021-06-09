@@ -42,6 +42,7 @@ app.use(session({
     secret: process.env.SECRET,
     store: new MongoDBStore({
         uri: process.env.DB_URL,
+        databaseName: 'connect_mongodb_session',
         collection: 'sessions'
     }),
     resave: true,
@@ -52,10 +53,6 @@ app.use(cookieParser(process.env.SECRET));
 app.use(passport.initialize());
 app.use(passport.session());
 require('./backend/passportConfig')(passport);
-
-/*passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());*/
 
 //routes
 app.use("/api/users", userRouter);

@@ -21,8 +21,8 @@ function FileInput() {
         formData.append('isPublic', isPublic)
         formData.append('numFiles', fileArr.length)
         const http = axios.create({
-            baseURL: "https://lj-image-storage.herokuapp.com/api",
-            //baseURL: "http://localhost:8989/api",
+            //baseURL: "https://lj-image-storage.herokuapp.com/api",
+            baseURL: "http://localhost:8989/api",
             headers: {
                 'Content-type': `multipart/form-data; boundary=${formData._boundary}`
             },
@@ -83,7 +83,7 @@ function FileInput() {
             <button id="fileInputButton" type="submit" onClick={handleDelete}>Delete</button>
             </label>
             <h3>Your Images:</h3>
-            <Display isLanding={false} toDelete={toDelete} setToDelete={setToDelete} />
+            <Display isLanding={false} otherProfile={false} toDelete={toDelete} setToDelete={setToDelete} />
         </div>
     );
 }
