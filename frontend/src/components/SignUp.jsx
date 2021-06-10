@@ -7,11 +7,6 @@ function SignUp(props) {
     useEffect(() => {
         props.checkAuth()
       }, []);
-
-    const initialFormState= {
-        email: "",
-        password: ""
-    };
     
     const [form, setForm] = useState({
         email: "",
@@ -28,7 +23,6 @@ function SignUp(props) {
     };
 
     const saveData = event => {
-        console.log(form)
         if (form.email == undefined || form.password == undefined || form.email.length <= 5 || form.password.length <= 5) {
             setErrorMessage("Email and password should be longer than 5 characters")
             return
@@ -38,7 +32,7 @@ function SignUp(props) {
                 setSubmitted(true);
             })
             .catch(e => {
-                setErrorMessage("Error signing up, please try again later")
+                setErrorMessage("Error signing up or email already in use, please try again later")
             });
     };
     
