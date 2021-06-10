@@ -102,7 +102,7 @@ module.exports = {
     },
     getImages: (req, res) => {
         const filter = { isPublic: true }
-        Image.findRandom(filter, {}, {limit: 15}, function(err, results) {
+        Image.findRandom(filter, {}, {limit: 10}, function(err, results) {
             if (err || results == null) {
                 return res.status(500).json({
                     message: err,
