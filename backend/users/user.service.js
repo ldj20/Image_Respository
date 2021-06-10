@@ -78,6 +78,7 @@ module.exports = {
                     })
                 }
                 //succesful login
+                console.log("hijear")
                 return res.status(200).json({
                     message: "valid user",
                     success: 1
